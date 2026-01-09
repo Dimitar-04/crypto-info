@@ -142,7 +142,11 @@ const PriceChart = ({
 									width={80}
 								/>
 								<Tooltip
-									formatter={(value: number) => [
+									// stvarno ne znam zaso
+									// prod:
+									// formatter={(value: number ) => [
+									// local:
+									formatter={(value: number | undefined) => [
 										formatPrice(value ?? 0),
 										"Close",
 									]}

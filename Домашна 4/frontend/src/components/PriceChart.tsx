@@ -146,7 +146,7 @@ const PriceChart = ({
 									// prod:
 									// formatter={(value: number ) => [
 									// local:
-									formatter={(value: number | undefined) => [
+									formatter={(value: number) => [
 										formatPrice(value ?? 0),
 										"Close",
 									]}

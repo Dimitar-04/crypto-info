@@ -45,7 +45,10 @@ export const CoinsProvider = ({ children }: { children: ReactNode }) => {
 			try {
 				const res = await fetch(`${API_BASE_URL}/api/ohlcv-data/carousel`);
 				const data: CarouselDataResponse = await res.json();
-				const coinList: CoinCarousel[] = data || [];
+				const coinList: CoinCarousel[] = (data || []).map((coin) => ({
+					...coin,
+					pctChange: coin.pctChange ?? 0,
+				}));
 				setCoinsCarousel(coinList);
 			} catch (error) {
 				console.error("Failed to fetch carousel data:", error);

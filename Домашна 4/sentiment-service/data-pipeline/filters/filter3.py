@@ -106,11 +106,17 @@ class Filter3(Filter):
         # append to existing data file
         if all_dfs:
             final_df = pd.concat(all_dfs, ignore_index=True)
+            
+            final_df = final_df.drop_duplicates(subset=['symbol', 'date'], keep='last')
+            
             output_path = os.path.join(OUTPUT_DIR, "data_to_add.csv")
             
-            # append with header only if file doesn't exist
-            write_header = not os.path.exists(output_path)
-            final_df.to_csv(output_path, mode='a', header=write_header, index=False)
+            if os.path.exists(output_path):
+                existing_df = pd.read_csv(output_path)
+                final_df = pd.concat([existing_df, final_df], ignore_index=True)
+                final_df = final_df.drop_duplicates(subset=['symbol', 'date'], keep='last')
+            
+            final_df.to_csv(output_path, index=False)
             
             # update metadata for successfully processed coins
             processed_symbols = final_df['symbol'].unique()

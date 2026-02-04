@@ -1,1 +1,0 @@
-alter table if exists ohlcv_data alter column date type date using date::date;

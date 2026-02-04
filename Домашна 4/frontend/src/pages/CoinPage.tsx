@@ -27,7 +27,7 @@ const CoinPage = () => {
 	const { symbol } = useParams<{ symbol: string }>();
 	const [coinData, setCoinData] = useState<OhlcvData[]>([]);
 	const [coinStats, setCoinStats] = useState<CoinStats | null>(null);
-	const [period, setPeriod] = useState<TimePeriod>("1Y");
+	const [period, setPeriod] = useState<TimePeriod>("1M");
 	const [chartType, setChartType] = useState<ChartType>("line");
 	const [chartLoading, setChartLoading] = useState(true);
 	const [statsLoading, setStatsLoading] = useState(true);
@@ -61,7 +61,7 @@ const CoinPage = () => {
 
 			try {
 				const res = await fetch(
-					`${API_BASE_URL}/api/ohlcv-data/${symbol}/stats`
+					`${API_BASE_URL}/api/ohlcv-data/${symbol}/stats`,
 				);
 				if (res.ok) {
 					const data: CoinStatsResponse = await res.json();
@@ -86,7 +86,7 @@ const CoinPage = () => {
 		setTaLoading(true);
 		try {
 			const res = await fetch(
-				`${API_BASE_URL}/api/ta/${symbol}/score?period=${periodToFetch}`
+				`${API_BASE_URL}/api/ta/${symbol}/score?period=${periodToFetch}`,
 			);
 			if (res.ok) {
 				const score: TechnicalAnalysisScoreResponse = await res.json();
@@ -182,7 +182,7 @@ const CoinPage = () => {
 
 			try {
 				const res = await fetch(
-					`${API_BASE_URL}/api/ohlcv-data/${symbol}${sizeParam}`
+					`${API_BASE_URL}/api/ohlcv-data/${symbol}${sizeParam}`,
 				);
 				const data: OhlcvDataPagedResponse = await res.json();
 
